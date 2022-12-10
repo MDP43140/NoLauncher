@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
     }
+}
 allprojects {
     repositories {
         google()
