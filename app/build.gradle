@@ -1,22 +1,33 @@
 plugins {
-    id 'com.android.application'
+	id 'com.android.application'
 }
 
+//Load sign key
+def ksPropsFile = rootProject.file(".signing/keystore.properties");
+def ksProps = new Properties()
+ksProps.load(new FileInputStream(ksPropsFile))
+
 android {
-    namespace 'com.saranomy.nolauncher'
-    compileSdk 33
-
-    defaultConfig {
-        applicationId "com.saranomy.nolauncher"
-        minSdk 21
-        targetSdk 33
-        versionCode 11
-        versionName "2.0"
-        vectorDrawables {
-            useSupportLibrary true
-        }
-    }
-
+	namespace "io.mdp43140.nolauncher"
+	compileSdk 33
+	defaultConfig {
+		applicationId android.namespace
+		minSdk 21
+		targetSdk android.compileSdk
+		versionCode 2
+		versionName "1.1"
+		vectorDrawables {
+			useSupportLibrary true
+		}
+	}
+	signingConfigs {
+		main {
+			storeFile file(ksProps['storeFile'])
+			storePassword ksProps['storePassword']
+			keyAlias ksProps['keyAlias']
+			keyPassword ksProps['keyPassword']
+		}
+	}
 	buildTypes {
 		release {
 			minifyEnabled true
@@ -26,6 +37,7 @@ android {
 			ext.alwaysUpdateBuildId = false
 			debuggable false
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+			signingConfig signingConfigs.main
 		}
 	}
 	compileOptions {
