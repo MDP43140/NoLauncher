@@ -15,7 +15,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 	@SuppressLint("StaticFieldLeak")
 	public static MainActivity self;
-	private static ArrayList<AppItem> apps;
+	public static ArrayList<AppItem> apps;
 	private EditText activity_home_search;
 	private ListView activity_home_list;
 
@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 	}
 	@Override protected void onStop() {
 		super.onStop();
+		activity_home_search.setText("");
 		self = null;
 	}
 	@Override public void onBackPressed() {

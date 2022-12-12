@@ -7,7 +7,10 @@ import android.content.Intent;
 public class AppChangeReceiver extends BroadcastReceiver {
 	@SuppressLint("UnsafeProtectedBroadcastReceiver")
 	@Override public void onReceive(Context c, Intent intent) {
-		if (MainActivity.self != null)
+		if (MainActivity.self != null){
 			MainActivity.self.loadApps();
+		} else {
+			MainActivity.apps = null;
+		}
 	}
 }

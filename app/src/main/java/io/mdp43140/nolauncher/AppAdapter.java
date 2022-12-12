@@ -1,11 +1,7 @@
 package io.mdp43140.nolauncher;
 import java.util.ArrayList;
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -26,25 +22,24 @@ public class AppAdapter extends BaseAdapter {
 		if (view == null){
 			view = activity.getLayoutInflater().inflate(R.layout.item_app, null);
 			holder = new ViewHolder();
-			holder.item_app_name = view.findViewById(R.id.item_app_name);
-			holder.item_app_icon = view.findViewById(R.id.item_app_icon);
+			holder.name = view.findViewById(R.id.item_app_name);
+			holder.icon = view.findViewById(R.id.item_app_icon);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
 		final AppItem app = (AppItem) getItem(position);
-		holder.item_app_icon.setImageDrawable(app.icon);
-		view.setOnClickListener(new OnClickListener(){
+		holder.icon.setImageDrawable(app.icon);
+		view.setOnClickListener(new View.OnClickListener(){
 			@Override public void onClick(View v){
-				v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 				activity.startActivity(activity.getPackageManager().getLaunchIntentForPackage(app.packageName));
 			}
 		});
-		holder.item_app_name.setText(app.name);
+		holder.name.setText(app.name);
 		return view;
 	}
 	public class ViewHolder {
-		ImageView item_app_icon;
-		TextView item_app_name;
+		ImageView icon;
+		TextView name;
 	}
 }
