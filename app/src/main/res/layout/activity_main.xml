@@ -9,9 +9,9 @@
 		android:id="@+id/activity_home_search"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:hint="Find" />
+		android:hint="Find"/>
 	<ListView
 		android:id="@+id/activity_home_list"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"/>
 </LinearLayout>
