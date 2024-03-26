@@ -8,8 +8,8 @@ def ksProps = new Properties()
 ksProps.load(new FileInputStream(ksPropsFile))
 
 android {
-	compileSdk 33
-	buildToolsVersion "31.0.0"
+	compileSdk 34
+	buildToolsVersion "34.0.0"
 	namespace "io.mdp43140.nolauncher"
 	defaultConfig {
 		applicationId android.namespace
@@ -35,7 +35,7 @@ android {
 		release {
 			minifyEnabled true
 			shrinkResources true
-			crunchPngs true
+		//crunchPngs true // no longer needed, since the PNGs are optimized in the first place before compiling
 			ext.enableCrashlytics = false
 			ext.alwaysUpdateBuildId = false
 			debuggable false
@@ -47,8 +47,21 @@ android {
 		}
 	}
 	compileOptions {
-		sourceCompatibility 8
-		targetCompatibility 17
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 	}
-	buildFeatures.compose true
+	buildFeatures {
+		buildConfig false
+		compose false
+		viewBinding false
+	}
+	packagingOptions {
+		// TODO: how can we get rid of assets/dexopt, and META-INF/com/android/build/gradle/app-metadata.properties ?
+		resources.excludes += ["assets/dexopt/**","META-INF/**","DebugProbesKt.bin", "kotlin/**.kotlin_builtins", "kotlin-tooling-metadata.json"]
+	}
+	dependenciesInfo {
+		// https://gitlab.com/IzzyOnDroid/repo/-/issues/491
+		includeInApk = false
+		includeInBundle = false
+	}
 }
